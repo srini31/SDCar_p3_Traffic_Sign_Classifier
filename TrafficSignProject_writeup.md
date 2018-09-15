@@ -28,7 +28,8 @@ The goals / steps of this project are the following:
 [image7]: ./project_results/plot_image_flipX_1.png "Plot of images label 1 - augment/flip"
 [image8]: ./project_results/plot_image_blurX_1.png "Plot of images label 1 - augment/blur"
 [image9]: ./project_results/hist_augmented_1.png "Histogram of augmented data"
-[image10]: ./project_results/sample_test_images.png "Test images"
+[image10]: ./project_results/Loss_Accuracy.png "Loss and Accuracy"
+[image11]: ./project_results/sample_test_images.png "Test images"
 
 
 CarND-Traffic-Sign-Classifier-Project
@@ -173,44 +174,86 @@ Lenet was a good starting point because it already uses convolution. Convolution
 
 If a well known architecture was chosen:
 * What architecture was chosen?
-- Lenet architecture was chosen
+- Lenet architecture was chosen as a starting point
 
 * Why did you believe it would be relevant to the traffic sign application?
 - It was good for the MNIST image data set in the lab and I also followed the project instructions to use it.
 
+
 * How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
-- The test accuracy is below 0.93 which means that I may have to investigate the following
+The batch size was chosen as 128 for GPU run as it was quicker to complete. I chose layers in the following order
+
+ #My network structure;  rate = 0.001, dropout = 0.3,
+ Layer 1: Convolutional. Input = 32x32x1. Output = 28x28x20.
+ Pooling. Input = 28x28x20. Output = 14x14x20.
+ Layer 2: Convolutional.Input = 14x14x20; Output = 10x10x40. -- input channels = 20, output = 40
+ Pooling. Input = 10x10x30. Output = 5x5x40.
+ Flatten. Input = 5x5x40. Output = 1000.
+ Layer 3: Fully Connected. Input = 1000. Output = 250.
+ dropout = 0.3
+ Layer 4: Fully Connected. Input = 250. Output = 100 #10.
+ Layer 5: Fully Connected. Input = 100. Output = 43 #10.
+     
+In my first submission, the validation accuracy was just 0.93. After some iterations I realized that increasing the depth of convolution layer improves the accuracy. So I increased the depth to 20 from 6 in the first layer and to 40 from 16 in the second layer. I also added a new Fully connected layer. Since the model as underfitting, I reduced the drop_out rate to 0.3. The learning rate at 0.001 was good and reducing it did not improve the accuracy. I used the Adam Optimizer because it was better than SGD (stochastic gradient descent). 
+
+In case the model was overfitting, the drop out rate has to increased and viceversa.
+
+At EPOCH 100 the Validation Accuracy = 0.951 and Training Loss = 0.023 and Test accuracy = 0.924
+
+Here is a plot of loss and accuracy for this model. Calculating loss and accuracy for each batch slows down the training process so data should be collected only for a subset of batches.
+![Loss and Accuracy][image10] 
+
+
+- In the first submission, the test accuracy = 0.917 which means that I may have to investigate the following
  * what image labels are causing a low test accuracy?
  * Are the images repsented in correct proportion in training, validation and test data sets?
  * Are the augmentation techniques used adding enough variety to the test and validation data
+
+
 
 ### Test a Model on New Images
 
 #### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
 Here are five German traffic signs that I found on the web:
-![Test images][image10] 
+![Test images][image11] 
 
 The images were chosen so that they are present and represented in the test data set. I did not attempt to find images that may make the model fail.
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
+Answer for the review: describing the images collected from the following perspectives:
+The Angle of the image
+The Brightness of the image
+The Contrast of the image
+The jitteriness of the image
+Are there any background objects?
+
+ex_0_SpeedLimit_20kmh.png  -- angle is perpendicular, bright, no jitteriness with a house in the background
+ex_0_SpeedLimit_20kmh_2.png  -- angle is not perpendicular, bright, no jitteriness with some background objects
+ex_13_Yield.png -- angle is perpendicular, slightly dark, no jitteriness with some pole wires and sky in the background
+ex_28_ChildrenCrossing.png -- angle is perpendicular, slightly blurred in the bottom, no jitteriness with yellow background
+ex_39_KeepLeft.png -- angle is perpendicular, slightly dark and blurred, no jitteriness with a dark background
+ex_40_RoundaboutMandatory.png -- angle is perpendicular, bright, no jitteriness with a green tree in the background
+
+
 Here are the results of the prediction:
 
 | Image								| Prediction										| 
 |:---------------------------------:|:-------------------------------------------------:| 
-| Speed limit 20 km/h (0) 			| Speed limit 60 km/h (3) 							| 
-| Speed limit 20 km/h (0) 			| Right-of-way at the next intersection (11) 		| 
+| Speed limit 20 km/h (0) 			| End of no passing (41) 							| 
+| Speed limit 20 km/h (0) 			| No passing (9) 									| 
 | Keep Left (39) 					| Keep Left (39) 									| 
 | Children Crossing (28) 			| Children Crossing (28) 							| 
 | Yield (13) 						| Yield   (13) 										| 
 | Roundabout Mandatory (40) 		| Roundabout Mandatory  (40) 						| 
 
+
 The sings for "Speed limit 20 km/h" in training data set is different from the test data. The number font looks different and the test data was greyed out. It had a red border, test data had a blue border, the test data was in color. The two test images are also different. Once it predicted label ['3', 'Speed limit (60km/h)'] and other time it predicted label ['11', 'Right-of-way at the next intersection']
 
 
 
-The model was able to correctly guess 4 of the 6 traffic signs, which gives an accuracy of 66.66%. The accuracy on the test set was 0.91. These test images were in color and that may have impacted the accuracy.
+The model was able to correctly guess 4 of the 6 traffic signs, which gives an accuracy of 66.66%. The accuracy on the test set was 0.924. These test images were in color and that may have impacted the accuracy.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
@@ -220,21 +263,19 @@ For the first image, the model is relatively sure that this is a stop sign (prob
 
 
 Top 5 softmax probabilies for the images
-[[0.85 0.09 0.05 0 0 ]
-[1 0 0 0 0 ]
-[1 0 0 0 0 ]
+[[1 0 0 0 0 ]
 [1 0 0 0 0 ]
 [0.99 0 0 0 0]
 [0.99 0 0 0 0]
-]
+[0.99 0 0 0 0] ]
 
 Indices of the labels    
-[ 1  5  3  2  8]
- [39 13 38 10  5]
- [28  0  1  2  3]
+[[ 0  1 36  5 37]
+ [39  4 38 33 40]
+ [11 41 30 27 23]
  [13  0  1  2  3]
- [40 12 10  7 42]
- [11  5 30  3  7]]
+ [40 35 33 18 12]
+ [17 36 41  0 37]]
  
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
@@ -244,5 +285,6 @@ Indices of the labels
 Reference:
 https://www.datacamp.com/community/tutorials/tensorflow-tutorial
 https://medium.com/nanonets/how-to-use-deep-learning-when-you-have-limited-data-part-2-data-augmentation-c26971dc8ced
+
 
 
