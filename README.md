@@ -1,14 +1,15 @@
 # **Traffic Sign Recognition** 
 
-## Writeup
-
-### You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
+## Project Writeup
 
 ---
+Overview
+---
+In this project, the learning about deep neural networks and convolutional neural networks will be used to classify traffic signs. We will train and validate a model so it can classify traffic sign images using the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset). After the model is trained, the model will be tried out on images of German traffic signs found on the web.
 
-**Build a Traffic Sign Recognition Project**
 
-The goals / steps of this project are the following:
+**Goals of the Traffic Sign Recognition Project**
+
 * Load the data set (see below for links to the project data set)
 * Explore, summarize and visualize the data set
 * Design, train and test a model architecture
