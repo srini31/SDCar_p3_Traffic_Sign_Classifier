@@ -64,6 +64,7 @@ The third image prints some sample images
 
 ![Histogram of initial training data][image1]
 ![Histogram of training, validation and test data][image2]
+
 ![Training data exploration][image3]
 
 ### Design and Test a Model Architecture
