@@ -62,8 +62,7 @@ The second image shows the training, validation and test data on the same plot
 The third image prints some sample images
 
 
-![Histogram of initial training data][image1]
-![Histogram of training, validation and test data][image2]
+![Histogram of initial training data][image1] ![Histogram of training, validation and test data][image2]
 
 ![Training data exploration][image3]
 
