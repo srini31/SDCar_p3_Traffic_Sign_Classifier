@@ -19,7 +19,7 @@ The goals / steps of this project are the following:
 
 [image1]: ./project_results/hist_initial_single_1.png  "Histogram of initial training data"
 [image2]: ./project_results/multiHist_1.png "Histogram of training, validation and test data"
-[image3]: ./project_results/dataExplore_1.png "Training data exploration"
+[image3]: ./project_results/dataExplore_1_c.png "Training data exploration"
 [image4]: ./project_results/show_sign_and_count_color_1_c.png "Color signs and count"
 [image5]: ./project_results/show_sign_and_count_gray_1_c.png "Gray signs and count"
 [image6]: ./project_results/plot_image_label_image_1_c.png "Plot of images label 1"
