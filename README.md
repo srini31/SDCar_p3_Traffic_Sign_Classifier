@@ -1,8 +1,6 @@
 # **Traffic Sign Recognition** 
 
-## Writeup
-
-### You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
+## Project Writeup
 
 ---
 
@@ -78,11 +76,13 @@ Here is an example of a traffic sign image before and after grayscaling. some fe
 color is not giving any additional information. we are searching mostly for patterns. For example, images with labels 3, 19, 23, 38 are initially dark but they are visible in gray. 
 
 After normalization, mean, std dev recenter etc, here is the pixel data
+
 X_train[0]:  [[-0.84136963 -0.85649407 -0.85758454 ..., -0.79605383 -0.80899733   -0.80790681]
  [-0.82624525 -0.84567404 -0.84567404 ..., -0.79605383 -0.81008774   -0.81221122]
  [-0.82836866 -0.84567404 -0.84888804 ..., -0.79605383 -0.81008774   -0.81221122]
  
 ![Color signs and count][image4]
+
 ![Gray signs and count][image5]
 
 As a last step, I normalized the image data because ...
